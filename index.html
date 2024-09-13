@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    backgroundColor: {
+                        'dark-primary': '#1a202c',
+                        'dark-secondary': '#2d3748',
+                    },
+                    textColor: {
+                        'dark-primary': '#e2e8f0',
+                        'dark-secondary': '#e2e8f0',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-dark-primary text-gray-800 dark:text-dark-primary">
+    <!-- Navigation Menu -->
+    <nav class="bg-white dark:bg-dark-secondary shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="/" class="text-xl font-bold text-gray-800 dark:text-dark-primary">HEADER</a>
+                </div>
+                <div class="flex items-center">
+                    <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-dark-secondary hover:text-gray-900 dark:hover:text-dark-primary hover:bg-gray-100 dark:hover:bg-gray-700">Trang chủ</a>
+                    <a href="/stats" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-dark-secondary hover:text-gray-900 dark:hover:text-dark-primary hover:bg-gray-100 dark:hover:bg-gray-700">Thống kê</a>
+                    <button id="darkModeToggle" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-dark-secondary hover:text-gray-900 dark:hover:text-dark-primary hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto px-4 py-8">
+        <a href="/"><h1 class="text-3xl font-bold text-gray-800 dark:text-dark-primary mb-6">Danh sách đóng góp bão số 3 Yagi cho MTTQVN</h1></a>
+        <p class="text-sm text-gray-600 dark:text-dark-secondary mb-4">Theo danh sách công bố từ MTTQVN đến ngày 10/09/2024</p>
+        <p class="text-sm text-gray-600 dark:text-dark-secondary mb-4">Miễn trừ trách nhiệm: Thông tin được cung cấp từ MTTQVN, chúng tôi chỉ XỬ LÝ DỮ LIỆU và giúp việc tìm kiếm, lọc dữ liệu đơn giản hơn, để xem bản gốc vui lòng truy cập: </p>
+        <a href="https://www.facebook.com/thongtinchinhphu/posts/pfbid027QC8dzUuNEPWSFYdMPfyLkmbDaMMYM5JbNmz3bSBzDoXdnmNnuYFtjruy6txSQcnl" class="text-sm text-blue-500 dark:text-blue-400 mb-4">Thông tin chính phủ - Facebook</a>
+        <p class="text-sm text-gray-600 dark:text-dark-secondary mb-4">Trang web không chèn link Shopee, quảng cáo hay bất cứ thứ gì, nếu bạn truy cập vào trang web có chứa quảng cáo, hãy kiểm tra kỹ trước khi tiếp tục.</p>
+
+        <form id="searchForm" method="GET" class="mb-8 bg-white dark:bg-dark-secondary p-6 rounded-lg shadow-md">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                    <label for="search" class="block text-sm font-medium text-gray-700 dark:text-dark-secondary mb-1">Tìm kiếm</label>
+                    <input type="text" id="search" name="search" placeholder="Search term" value="" 
+                           class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="start_date" class="block text-sm font-medium dark:text-dark-secondary text-gray-700 mb-1">Từ ngày</label>
+                    <input type="date" id="start_date" name="start_date" value="" 
+                           class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="end_date" class="block text-sm font-medium dark:text-dark-secondary text-gray-700 mb-1">Đến ngày</label>
+                    <input type="date" id="end_date" name="end_date" value="" 
+                           class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="rows_per_page" class="block text-sm font-medium dark:text-dark-secondary text-gray-700 mb-1">Số dòng trên trang</label>
+                    <select id="rows_per_page" name="rows_per_page" 
+                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                        
+                            <option value="10" selected>
+                                10
+                            </option>
+                        
+                            <option value="25" >
+                                25
+                            </option>
+                        
+                            <option value="50" >
+                                50
+                            </option>
+                        
+                            <option value="100" >
+                                100
+                            </option>
+                        
+                            <option value="200" >
+                                200
+                            </option>
+                        
+                    </select>
+                </div>
+                <div>
+                    <label for="sort_by" class="block text-sm font-medium dark:text-dark-secondary text-gray-700 mb-1">Sắp xếp theo</label>
+                    <select id="sort_by" name="sort_by" 
+                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                        <option value="Date" selected>Ngày</option>
+                        <option value="Amount" >Số tiền</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sort_order" class="block text-sm font-medium dark:text-dark-secondary text-gray-700 mb-1">Thứ tự sắp xếp</label>
+                    <select id="sort_order" name="sort_order" 
+                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                        <option value="ASC" selected>Tăng dần</option>
+                        <option value="DESC" >Giảm dần</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="amount_range" class="block text-sm font-medium dark:text-dark-secondary text-gray-700 mb-1">Khoảng số tiền</label>
+                    <select id="amount_range" name="amount_range" 
+                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-dark-primary dark:border-gray-600">
+                        
+                            <option value="0" selected>
+                                Tất cả số tiền VND
+                            </option>
+                        
+                            <option value="1" >
+                                0 đến 100,000 VND
+                            </option>
+                        
+                            <option value="2" >
+                                100,000 đến 500,000 VND
+                            </option>
+                        
+                            <option value="3" >
+                                500,000 đến 1,000,000 VND
+                            </option>
+                        
+                            <option value="4" >
+                                1,000,000 đến 5,000,000 VND
+                            </option>
+                        
+                            <option value="5" >
+                                5,000,000 đến 10,000,000 VND
+                            </option>
+                        
+                            <option value="6" >
+                                10,000,000 đến 50,000,000 VND
+                            </option>
+                        
+                            <option value="7" >
+                                Trên 50,000,000 VND
+                            </option>
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button type="submit" 
+                        class="w-full px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                    Tìm kiếm
+                </button>
+            </div>
+        </form>
+
+        <!-- <div class="mb-4 text-sm text-gray-600 dark:text-dark-secondary">
+            Showing 10 of 200356 results
+        </div> -->
+
+        <!-- <div class="overflow-x-auto bg-white dark:bg-dark-secondary shadow-md rounded-lg">
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-200 dark:bg-gray-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-dark-secondary uppercase tracking-wider">
+                            Ngày
+                            <button onclick="sort('Date')" class="ml-1 focus:outline-none">
+                                <i class="fas fa-sort-up"></i>
+                            </button>
+                        </th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-dark-secondary uppercase tracking-wider">Document No</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-dark-secondary uppercase tracking-wider">
+                            Số tiền (VND)
+                            <button onclick="sort('Amount')" class="ml-1 focus:outline-none">
+                                <i class="fas fa-sort"></i>
+                            </button>
+                        </th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-dark-secondary uppercase tracking-wider">Credit (VND)</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-dark-secondary uppercase tracking-wider">Nội dung</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-dark-secondary divide-y divide-gray-200 dark:divide-gray-600">
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5213.45946</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">50,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">292976.010924.013647.xin cam on</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5090.85797</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">20,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">VCB.CTDK.31/03/2024.ADIDA PHAT. CT tu 0481000755821 toi 0011001932418 MAT TRAN TO QUOC VN - BAN CUU TRO TW</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5241.83107</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">29,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">MBVCB.6916176124.CAO VIET TUAN chuyen tien.CT tu 0101001222009 CAO VIET TUAN toi 0011001932418 MAT TRAN TO QUOC VN - BAN CUU TRO TW</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5218.87149</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">272986.010924.101858.DO DUC LOI chuyen tien</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5388.96713</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">020097040509011046122024JDC5013867.96713.104607.Vietcombank:0011001932418:DANG THI THANH MHS533583</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5212.91607</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">529474.010924.112032.BUI VAN DAI chuyen tien</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5220.28596</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">577301.010924.113215.DO DUC LOI MHS 4242</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5388.33462</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">020097040509011137472024Y7ZE058213.33462.113747.Vietcombank:0011001932418:NGUYEN THI VAN chuyen tien</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5216.68569</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">761664.010924.121847.NGUYEN VAN TUAN chuyen tien</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">2024-09-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">5387.37142</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary">3,000 ₫</td>
+                        <td class="px-4 py-2 whitespace-nowrap dark:text-dark-primary"></td>
+                        <td class="px-4 py-2 dark:text-dark-primary">0200970405090112202020246WVI059470.37142.122015.Vietcombank:0011001932418:NGUYEN QUANG THO 010166</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div> -->
+
+        
+        <!-- <div class="mt-6 flex justify-center">
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                
+                
+                
+                    
+                        <a href="#" aria-current="page"
+                           class="z-10 bg-blue-50 dark:bg-blue-900 border-blue-500 text-blue-600 dark:text-blue-200 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            1
+                        </a>
+                    
+                
+                    
+                        <a href="/?page=2&amp;search=&amp;start_date=&amp;end_date=&amp;rows_per_page=10&amp;sort_by=Date&amp;sort_order=ASC&amp;amount_range=0"
+                           class="bg-white dark:bg-dark-secondary border-gray-300 text-gray-500 dark:text-dark-secondary hover:bg-gray-50 dark:hover:bg-gray-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            2
+                        </a>
+                    
+                
+                    
+                        <a href="/?page=3&amp;search=&amp;start_date=&amp;end_date=&amp;rows_per_page=10&amp;sort_by=Date&amp;sort_order=ASC&amp;amount_range=0"
+                           class="bg-white dark:bg-dark-secondary border-gray-300 text-gray-500 dark:text-dark-secondary hover:bg-gray-50 dark:hover:bg-gray-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            3
+                        </a>
+                    
+                
+                
+                
+                    <a href="/?page=2&amp;search=&amp;start_date=&amp;end_date=&amp;rows_per_page=10&amp;sort_by=Date&amp;sort_order=ASC&amp;amount_range=0"
+                       class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white dark:bg-dark-secondary text-sm font-medium text-gray-500 dark:text-dark-secondary hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <span class="sr-only">Sau</span>
+                        &raquo;
+                    </a>
+                    <a href="/?page=20036&amp;search=&amp;start_date=&amp;end_date=&amp;rows_per_page=10&amp;sort_by=Date&amp;sort_order=ASC&amp;amount_range=0"
+                       class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white dark:bg-dark-secondary text-sm font-medium text-gray-500 dark:text-dark-secondary hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <span class="sr-only">Cuối</span>
+                        Cuối
+                    </a>
+                
+            </nav>
+        </div> -->
+    </div>
+
+    <script>
+        function sort(field) {
+            var form = document.getElementById('searchForm');
+            var sortByInput = document.getElementById('sort_by');
+            var sortOrderInput = document.getElementById('sort_order');
+            
+            if (sortByInput.value === field) {
+                sortOrderInput.value = sortOrderInput.value === 'ASC' ? 'DESC' : 'ASC';
+            } else {
+                sortByInput.value = field;
+                sortOrderInput.value = 'ASC';
+            }
+            
+            form.submit();
+        }
+    
+        document.getElementById('sort_by').addEventListener('change', function() {
+            document.getElementById('searchForm').submit();
+        });
+    
+        document.getElementById('sort_order').addEventListener('change', function() {
+            document.getElementById('searchForm').submit();
+        });
+    
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+    
+        function toggleDarkMode() {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('darkMode', isDark);
+            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+    
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            html.classList.add('dark');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8c2808aa186e9e2e","version":"2024.8.0","r":1,"token":"50200937fd4f4dea9631928beb631512","serverTiming":{"name":{"cfExtPri":true,"cfL4":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
